@@ -1,0 +1,739 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>그린컴퓨터아카데미 수원 통합 스케줄 대시보드</title>
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --panel: #ffffff;
+      --ink: #172033;
+      --muted: #667085;
+      --line: #d9e2ef;
+      --blue: #164ea8;
+      --navy: #102344;
+      --teal: #147d73;
+      --green: #1d7f54;
+      --amber: #b77913;
+      --red: #c43d3d;
+      --soft-blue: #e8f0fe;
+      --soft-teal: #e3f6f2;
+      --soft-amber: #fff4d7;
+      --shadow: 0 16px 40px rgba(23, 32, 51, 0.09);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      min-height: 100%;
+      color: var(--ink);
+      background: var(--bg);
+      font-family: "Pretendard", "Segoe UI", "Noto Sans KR", Arial, sans-serif;
+      letter-spacing: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      background:
+        linear-gradient(135deg, rgba(22, 78, 168, 0.08), transparent 34rem),
+        linear-gradient(315deg, rgba(20, 125, 115, 0.08), transparent 34rem),
+        var(--bg);
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+    }
+
+    .shell {
+      width: min(1440px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 24px 0 56px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .mark {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      color: #fff;
+      background: linear-gradient(135deg, var(--teal), var(--blue));
+      font-weight: 900;
+      box-shadow: var(--shadow);
+    }
+
+    .brand strong {
+      display: block;
+      line-height: 1.25;
+    }
+
+    .brand small {
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .date-pill,
+    .print-button {
+      min-height: 38px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .date-pill {
+      padding: 8px 13px;
+      color: #314158;
+      background: rgba(255, 255, 255, 0.86);
+      border: 1px solid var(--line);
+    }
+
+    .print-button {
+      padding: 8px 14px;
+      border: 1px solid rgba(22, 78, 168, 0.2);
+      color: #fff;
+      background: var(--blue);
+      cursor: pointer;
+      box-shadow: 0 10px 22px rgba(22, 78, 168, 0.17);
+    }
+
+    .print-button:hover {
+      background: #0f3f89;
+    }
+
+    .summary {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(340px, 0.65fr);
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .panel,
+    .metric,
+    .timeline-card,
+    .calendar-card,
+    .check-card {
+      border: 1px solid rgba(217, 226, 239, 0.95);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: var(--shadow);
+    }
+
+    .panel {
+      padding: 20px;
+      min-width: 0;
+    }
+
+    .hero-panel {
+      display: grid;
+      gap: 18px;
+    }
+
+    .eyebrow {
+      color: var(--teal);
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    h1 {
+      margin-top: 4px;
+      font-size: clamp(25px, 3vw, 38px);
+      line-height: 1.18;
+    }
+
+    .hero-copy {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.65;
+      max-width: 780px;
+    }
+
+    .status-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 28px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .badge.teal {
+      color: #0d5d55;
+      background: var(--soft-teal);
+      border: 1px solid rgba(20, 125, 115, 0.16);
+    }
+
+    .badge.blue {
+      color: var(--blue);
+      background: var(--soft-blue);
+      border: 1px solid rgba(22, 78, 168, 0.16);
+    }
+
+    .badge.amber {
+      color: #8f5b06;
+      background: var(--soft-amber);
+      border: 1px solid rgba(183, 121, 19, 0.18);
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .metric {
+      min-height: 96px;
+      padding: 14px;
+      box-shadow: none;
+      display: grid;
+      align-content: space-between;
+      gap: 8px;
+    }
+
+    .metric span {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .metric strong {
+      font-size: 26px;
+      line-height: 1;
+    }
+
+    .metric small {
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.45;
+    }
+
+    .next-panel {
+      display: grid;
+      gap: 12px;
+      background: linear-gradient(160deg, #102344, #153a62);
+      color: #fff;
+    }
+
+    .next-panel h2 {
+      font-size: 18px;
+    }
+
+    .next-date {
+      display: grid;
+      gap: 8px;
+      padding: 14px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+    }
+
+    .next-date strong {
+      font-size: 28px;
+      line-height: 1;
+    }
+
+    .next-date span,
+    .next-panel p {
+      color: #d8e6f7;
+      line-height: 1.55;
+      font-size: 13px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .span-8 {
+      grid-column: span 8;
+    }
+
+    .span-4 {
+      grid-column: span 4;
+    }
+
+    .span-12 {
+      grid-column: span 12;
+    }
+
+    .panel-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .panel-head h2 {
+      font-size: 19px;
+      line-height: 1.3;
+    }
+
+    .panel-head p {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 8px;
+    }
+
+    .timeline-card {
+      padding: 12px;
+      display: grid;
+      grid-template-columns: 82px minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 12px;
+      box-shadow: none;
+    }
+
+    .timeline-card time {
+      color: var(--blue);
+      font-weight: 900;
+      font-size: 15px;
+      white-space: nowrap;
+    }
+
+    .timeline-card h3 {
+      font-size: 15px;
+      line-height: 1.35;
+    }
+
+    .timeline-card p {
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .status {
+      min-width: 56px;
+      text-align: center;
+      padding: 5px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .status.ready {
+      color: #0d5d55;
+      background: var(--soft-teal);
+    }
+
+    .status.wait {
+      color: #8f5b06;
+      background: var(--soft-amber);
+    }
+
+    .status.later {
+      color: #314158;
+      background: #edf2f7;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .calendar-card {
+      padding: 14px;
+      box-shadow: none;
+      display: grid;
+      gap: 8px;
+    }
+
+    .calendar-card strong {
+      font-size: 18px;
+    }
+
+    .calendar-card span {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .bar {
+      height: 8px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: #e7edf5;
+    }
+
+    .bar > i {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--teal), var(--blue));
+    }
+
+    .check-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .check-card {
+      padding: 12px;
+      box-shadow: none;
+      display: grid;
+      gap: 5px;
+    }
+
+    .check-card b {
+      font-size: 14px;
+    }
+
+    .check-card span {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .footer {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    @media (max-width: 980px) {
+      .summary,
+      .metrics,
+      .calendar-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .span-8,
+      .span-4,
+      .span-12 {
+        grid-column: span 12;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .shell {
+        width: min(100% - 24px, 1440px);
+        padding-top: 18px;
+      }
+
+      .topbar,
+      .panel-head,
+      .timeline-card {
+        display: grid;
+      }
+
+      .top-actions {
+        justify-content: start;
+      }
+
+      .panel {
+        padding: 16px;
+      }
+
+      .timeline-card {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media print {
+      @page {
+        size: A4 landscape;
+        margin: 9mm;
+      }
+
+      body {
+        background: #fff;
+        color: #111827;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .shell {
+        width: 100%;
+        padding: 0;
+      }
+
+      .print-button {
+        display: none;
+      }
+
+      .panel,
+      .metric,
+      .timeline-card,
+      .calendar-card,
+      .check-card {
+        box-shadow: none;
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="mark">SC</div>
+        <div>
+          <strong>그린컴퓨터아카데미 수원</strong>
+          <small>통합 스케줄 대시보드</small>
+        </div>
+      </div>
+      <div class="top-actions">
+        <div class="date-pill">기준일 <strong id="todayText">2026-07-09</strong></div>
+        <button class="print-button" type="button" onclick="window.print()">인쇄</button>
+      </div>
+    </header>
+
+    <section class="summary">
+      <article class="panel hero-panel">
+        <div>
+          <div class="eyebrow">2026 훈련이수자 과정 운영</div>
+          <h1>과정 일정, 평가일, 현장평가 준비 흐름을 한 화면에서 봅니다.</h1>
+          <p class="hero-copy">SC_V1은 통합 일정과 리마인드 기준을 담당합니다. 세부 증빙 준비 현황은 TEST 대시보드로 분리하고, 이 화면은 원장님과 운영 실무자가 일정 리스크를 빠르게 확인하는 용도로 구성했습니다.</p>
+        </div>
+        <div class="status-row" aria-label="과정 핵심 상태">
+          <span class="badge teal">훈련기간 2026.07.14 - 2026.12.15</span>
+          <span class="badge blue">평가 13건</span>
+          <span class="badge amber">현장평가 2026.12.14 예정</span>
+        </div>
+        <div class="metrics" aria-label="운영 지표">
+          <div class="metric">
+            <span>과정 시작</span>
+            <strong id="startDday">D-5</strong>
+            <small>2026.07.14 개강/OT</small>
+          </div>
+          <div class="metric">
+            <span>첫 평가</span>
+            <strong id="firstEvalDday">D-15</strong>
+            <small>드로잉 이미지 편집디자인</small>
+          </div>
+          <div class="metric">
+            <span>본평가 일정</span>
+            <strong>13</strong>
+            <small>NCS 9건, 비NCS 4건</small>
+          </div>
+          <div class="metric">
+            <span>최종 현장평가</span>
+            <strong id="fieldEvalDday">D-158</strong>
+            <small>2026.12.14 14:00 예정</small>
+          </div>
+        </div>
+      </article>
+
+      <aside class="panel next-panel">
+        <div>
+          <h2>다음 주요 일정</h2>
+          <p>오늘 기준으로 가장 먼저 도래하는 평가와 준비 항목을 확인합니다.</p>
+        </div>
+        <div class="next-date">
+          <span id="nextKicker">다가오는 평가</span>
+          <strong id="nextDate">7/24</strong>
+          <b id="nextTitle">드로잉 이미지 편집디자인</b>
+          <span id="nextMeta">디지털 편집디자인 기초 · NCS</span>
+        </div>
+        <p>일정 원천은 수동 1회성 반영 상태입니다. 다음 단계에서 Google Sheet 원본을 연결하면 자동 갱신 구조로 확장할 수 있습니다.</p>
+      </aside>
+    </section>
+
+    <section class="grid">
+      <article class="panel span-8">
+        <div class="panel-head">
+          <div>
+            <h2>평가 일정 타임라인</h2>
+            <p>능력단위가 끝나는 마지막 날을 본평가일로 정리했습니다.</p>
+          </div>
+          <span class="badge blue">수동 반영 v0.1</span>
+        </div>
+        <div class="timeline" id="timeline"></div>
+      </article>
+
+      <aside class="panel span-4">
+        <div class="panel-head">
+          <div>
+            <h2>월별 집중도</h2>
+            <p>평가가 몰리는 달을 먼저 확인합니다.</p>
+          </div>
+        </div>
+        <div class="calendar-grid">
+          <div class="calendar-card">
+            <strong>7월</strong>
+            <span>1건 · 개강 후 첫 평가 준비</span>
+            <div class="bar"><i style="width: 25%"></i></div>
+          </div>
+          <div class="calendar-card">
+            <strong>8월</strong>
+            <span>4건 · 기초/실무 평가 집중</span>
+            <div class="bar"><i style="width: 100%"></i></div>
+          </div>
+          <div class="calendar-card">
+            <strong>9월</strong>
+            <span>2건 · 작업실행/법규 관리</span>
+            <div class="bar"><i style="width: 50%"></i></div>
+          </div>
+          <div class="calendar-card">
+            <strong>10월</strong>
+            <span>2건 · 활용/전자출판 전환</span>
+            <div class="bar"><i style="width: 50%"></i></div>
+          </div>
+          <div class="calendar-card">
+            <strong>11월</strong>
+            <span>4건 · 비NCS 작품 산출 집중</span>
+            <div class="bar"><i style="width: 100%"></i></div>
+          </div>
+          <div class="calendar-card">
+            <strong>12월</strong>
+            <span>현장평가 · 발표/종강 흐름 관리</span>
+            <div class="bar"><i style="width: 80%"></i></div>
+          </div>
+        </div>
+      </aside>
+
+      <article class="panel span-12">
+        <div class="panel-head">
+          <div>
+            <h2>운영 체크포인트</h2>
+            <p>SC에서는 일정 리마인드를 맡고, TEST에서는 증빙 파일 상태를 추적합니다.</p>
+          </div>
+        </div>
+        <div class="calendar-grid check-list">
+          <div class="check-card">
+            <b>평가 D-14</b>
+            <span>평가도구, 수행준거, Google Form 문항, 응답시트 연결 여부 확인</span>
+          </div>
+          <div class="check-card">
+            <b>평가 D-7</b>
+            <span>안내문 배포, 평가자료 출력 기준, 보완 필요 파일 확인</span>
+          </div>
+          <div class="check-card">
+            <b>평가 D-day</b>
+            <span>응시자 명단, 평가 진행 기록, 사진/서명/결과 원천자료 확보</span>
+          </div>
+          <div class="check-card">
+            <b>평가 D+1</b>
+            <span>채점 결과, 종합의견서, 보완 요청 사항을 TEST 증빙 흐름에 반영</span>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <p class="footer">SC_V1은 통합 스케줄 대시보드입니다. 현장평가 준비 증빙의 세부 진척률은 greenartswTEST_V1에서 관리합니다.</p>
+  </main>
+
+  <script>
+    const evaluations = [
+      { date: "2026-07-24", label: "7/24", subject: "디지털 편집디자인 기초", unit: "드로잉 이미지 편집디자인", type: "NCS" },
+      { date: "2026-08-05", label: "8/5", subject: "디지털 편집디자인 기초", unit: "사진 이미지 편집디자인", type: "NCS" },
+      { date: "2026-08-13", label: "8/13", subject: "디지털 편집디자인 기초", unit: "편집디자인 소프트웨어 활용", type: "NCS" },
+      { date: "2026-08-20", label: "8/20", subject: "디지털 편집디자인 실무", unit: "편집디자인 인쇄감리", type: "NCS" },
+      { date: "2026-08-31", label: "8/31", subject: "디지털 편집디자인 실무", unit: "편집디자인 시안제작", type: "NCS" },
+      { date: "2026-09-09", label: "9/9", subject: "디지털 편집디자인 실무", unit: "편집디자인 작업실행", type: "NCS" },
+      { date: "2026-09-15", label: "9/15", subject: "디지털 편집 활용", unit: "출판 관련 법규 관리", type: "NCS" },
+      { date: "2026-10-07", label: "10/7", subject: "디지털 편집 활용", unit: "편집용 애플리케이션 활용", type: "NCS" },
+      { date: "2026-10-26", label: "10/26", subject: "디지털 편집 실무 활용", unit: "전자출판물 제작", type: "NCS" },
+      { date: "2026-11-02", label: "11/2", subject: "생성형 AI 활용", unit: "Firefly와 Generative Fill의 다양한 활용 방법", type: "비NCS" },
+      { date: "2026-11-10", label: "11/10", subject: "생성형 AI를 활용한 출판디자인", unit: "그레이디언트를 이용한 리플릿 디자인", type: "비NCS" },
+      { date: "2026-11-17", label: "11/17", subject: "생성형 AI를 활용한 출판디자인", unit: "이미지 합성과 타이포그래피를 활용한 작품 만들기", type: "비NCS" },
+      { date: "2026-11-24", label: "11/24", subject: "생성형 AI를 활용한 출판디자인", unit: "디자인 요소 생성과 타이포그래피의 결합, 책 표지 디자인", type: "비NCS" }
+    ];
+
+    const today = new Date();
+    const dayOnly = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    const parseLocalDate = (value) => {
+      const [year, month, day] = value.split("-").map(Number);
+      return new Date(year, month - 1, day);
+    };
+    const formatDate = (date) => {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+      return `${year}-${month}-${day}`;
+    };
+    const diffDays = (target) => Math.round((parseLocalDate(target) - dayOnly) / 86400000);
+    const ddayText = (target) => {
+      const d = diffDays(target);
+      if (d === 0) return "D-day";
+      return d > 0 ? `D-${d}` : `D+${Math.abs(d)}`;
+    };
+
+    document.getElementById("todayText").textContent = formatDate(dayOnly);
+    document.getElementById("startDday").textContent = ddayText("2026-07-14");
+    document.getElementById("firstEvalDday").textContent = ddayText("2026-07-24");
+    document.getElementById("fieldEvalDday").textContent = ddayText("2026-12-14");
+
+    const timeline = document.getElementById("timeline");
+    const upcoming = evaluations.find((item) => diffDays(item.date) >= 0) || evaluations[evaluations.length - 1];
+    document.getElementById("nextDate").textContent = upcoming.label;
+    document.getElementById("nextTitle").textContent = upcoming.unit;
+    document.getElementById("nextMeta").textContent = `${upcoming.subject} · ${upcoming.type}`;
+
+    timeline.innerHTML = evaluations.map((item) => {
+      const days = diffDays(item.date);
+      const state = days < 0 ? "later" : days <= 14 ? "wait" : "ready";
+      const text = days < 0 ? `완료 D+${Math.abs(days)}` : days === 0 ? "오늘" : `D-${days}`;
+      return `
+        <article class="timeline-card">
+          <time>${item.label}</time>
+          <div>
+            <h3>${item.unit}</h3>
+            <p>${item.subject} · ${item.type}</p>
+          </div>
+          <span class="status ${state}">${text}</span>
+        </article>
+      `;
+    }).join("");
+  </script>
+</body>
+</html>
