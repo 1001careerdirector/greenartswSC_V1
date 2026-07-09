@@ -6,23 +6,23 @@
   <title>그린컴퓨터아카데미 수원 통합 스케줄 대시보드</title>
   <style>
     :root {
-      --bg: #f5f7fb;
+      --bg: #f4f7fb;
       --panel: #ffffff;
       --ink: #172033;
       --muted: #667085;
       --line: #d9e2ef;
       --blue: #164ea8;
-      --navy: #102344;
+      --navy: #112e54;
       --teal: #147d73;
-      --green: #1d7f54;
       --amber: #b77913;
-      --red: #c43d3d;
+      --red: #c83f3f;
       --violet: #6652b8;
       --soft-blue: #e8f0fe;
       --soft-teal: #e3f6f2;
       --soft-amber: #fff4d7;
+      --soft-red: #fdecec;
       --soft-violet: #eeeafd;
-      --shadow: 0 16px 40px rgba(23, 32, 51, 0.09);
+      --shadow: 0 14px 34px rgba(23, 32, 51, 0.08);
     }
 
     * {
@@ -41,8 +41,8 @@
       min-height: 100vh;
       margin: 0;
       background:
-        linear-gradient(135deg, rgba(22, 78, 168, 0.08), transparent 34rem),
-        linear-gradient(315deg, rgba(20, 125, 115, 0.08), transparent 34rem),
+        linear-gradient(135deg, rgba(22, 78, 168, 0.08), transparent 32rem),
+        linear-gradient(315deg, rgba(20, 125, 115, 0.07), transparent 32rem),
         var(--bg);
     }
 
@@ -60,7 +60,7 @@
     .shell {
       width: min(1440px, calc(100% - 40px));
       margin: 0 auto;
-      padding: 24px 0 56px;
+      padding: 18px 0 32px;
     }
 
     .topbar {
@@ -68,7 +68,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 16px;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
     }
 
     .brand {
@@ -96,8 +96,10 @@
     }
 
     .brand small {
-      color: var(--muted);
-      line-height: 1.4;
+      color: var(--teal);
+      font-size: 12px;
+      font-weight: 900;
+      line-height: 1.35;
     }
 
     .top-actions {
@@ -117,14 +119,14 @@
       gap: 8px;
       border-radius: 999px;
       font-size: 13px;
-      font-weight: 800;
+      font-weight: 900;
       white-space: nowrap;
     }
 
     .date-pill {
       padding: 8px 13px;
       color: #314158;
-      background: rgba(255, 255, 255, 0.86);
+      background: rgba(255, 255, 255, 0.88);
       border: 1px solid var(--line);
     }
 
@@ -137,62 +139,40 @@
       box-shadow: 0 10px 22px rgba(22, 78, 168, 0.17);
     }
 
-    .print-button:hover {
-      background: #0f3f89;
+    .dashboard {
+      display: grid;
+      grid-template-columns: minmax(460px, 1.45fr) minmax(360px, 1fr) minmax(300px, 0.82fr);
+      gap: 6px;
+      min-height: calc(100vh - 88px);
     }
 
-    .panel,
-    .course-card,
-    .metric,
-    .timeline-card,
-    .queue-card,
-    .check-card {
-      border: 1px solid rgba(217, 226, 239, 0.95);
+    .panel {
+      min-width: 0;
+      padding: 20px;
+      border: 1px solid rgba(217, 226, 239, 0.96);
       border-radius: 8px;
       background: rgba(255, 255, 255, 0.92);
       box-shadow: var(--shadow);
     }
 
-    .panel {
-      padding: 20px;
-      min-width: 0;
-    }
-
-    .hero {
-      display: grid;
-      grid-template-columns: minmax(0, 1.35fr) minmax(340px, 0.65fr);
-      gap: 14px;
-      margin-bottom: 14px;
-    }
-
-    .hero-main {
-      display: grid;
-      gap: 16px;
-    }
-
-    .eyebrow {
-      color: var(--teal);
-      font-size: 12px;
-      font-weight: 900;
-    }
-
-    h1 {
-      margin-top: 4px;
-      font-size: clamp(25px, 3vw, 38px);
-      line-height: 1.18;
-    }
-
-    .hero-copy {
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.65;
-      max-width: 860px;
-    }
-
-    .status-row {
+    .panel-head {
       display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .panel-head h2 {
+      font-size: 19px;
+      line-height: 1.25;
+    }
+
+    .panel-head p {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
     }
 
     .badge {
@@ -200,7 +180,7 @@
       align-items: center;
       justify-content: center;
       min-height: 28px;
-      padding: 6px 10px;
+      padding: 5px 10px;
       border-radius: 999px;
       font-size: 12px;
       font-weight: 900;
@@ -235,6 +215,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 7px;
+      margin-bottom: 10px;
     }
 
     .filter-button {
@@ -256,146 +237,64 @@
       box-shadow: 0 8px 16px rgba(22, 78, 168, 0.16);
     }
 
-    .next-panel {
-      display: grid;
-      gap: 12px;
-      background: linear-gradient(160deg, #102344, #153a62);
-      color: #fff;
-    }
-
-    .next-panel h2 {
-      font-size: 18px;
-    }
-
-    .next-date {
-      display: grid;
-      gap: 8px;
-      padding: 14px;
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.14);
-    }
-
-    .next-date strong {
-      font-size: 28px;
-      line-height: 1;
-    }
-
-    .next-date span,
-    .next-panel p {
-      color: #d8e6f7;
-      line-height: 1.55;
-      font-size: 13px;
-    }
-
-    .course-grid {
+    .course-cards {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 10px;
       margin-bottom: 14px;
+    }
+
+    .course-card,
+    .next-card,
+    .calendar-card,
+    .timeline-card,
+    .queue-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
     }
 
     .course-card {
+      min-height: 126px;
       padding: 14px;
-      box-shadow: none;
       display: grid;
+      align-content: space-between;
       gap: 10px;
+      box-shadow: none;
     }
 
     .course-card h3 {
+      margin-top: 8px;
       font-size: 16px;
-      line-height: 1.35;
+      line-height: 1.25;
     }
 
-    .course-card p {
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.45;
-    }
-
-    .course-meta {
+    .mini-metrics {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 8px;
-    }
-
-    .metric {
-      min-height: 74px;
-      padding: 10px;
-      box-shadow: none;
-      display: grid;
-      align-content: space-between;
       gap: 6px;
     }
 
-    .metric span {
+    .mini-metric {
+      min-height: 38px;
+      display: grid;
+      place-items: center;
+      padding: 5px;
+      border-radius: 8px;
+      background: #f8fbff;
+      border: 1px solid var(--line);
+      text-align: center;
+    }
+
+    .mini-metric span {
       color: var(--muted);
-      font-size: 11px;
-      font-weight: 800;
-    }
-
-    .metric strong {
-      font-size: 21px;
-      line-height: 1;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(12, minmax(0, 1fr));
-      gap: 14px;
-    }
-
-    .span-8 {
-      grid-column: span 8;
-    }
-
-    .span-4 {
-      grid-column: span 4;
-    }
-
-    .span-12 {
-      grid-column: span 12;
-    }
-
-    .panel-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 14px;
-    }
-
-    .panel-head h2 {
-      font-size: 19px;
-      line-height: 1.3;
-    }
-
-    .panel-head p {
-      margin-top: 4px;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.5;
-    }
-
-    .timeline {
-      display: grid;
-      gap: 8px;
-    }
-
-    .timeline-card {
-      padding: 12px;
-      display: grid;
-      grid-template-columns: 86px 110px minmax(0, 1fr) auto;
-      align-items: center;
-      gap: 12px;
-      box-shadow: none;
-    }
-
-    .timeline-card time {
-      color: var(--blue);
+      font-size: 9px;
       font-weight: 900;
-      font-size: 14px;
-      white-space: nowrap;
+    }
+
+    .mini-metric strong {
+      font-size: 16px;
+      line-height: 1;
     }
 
     .course-chip {
@@ -403,7 +302,7 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 5px 9px;
+      padding: 5px 10px;
       border-radius: 999px;
       font-size: 11px;
       font-weight: 900;
@@ -412,17 +311,210 @@
 
     .course-chip.biz1 {
       color: #0d5d55;
-      background: var(--soft-teal);
+      background: #b8e3dc;
     }
 
     .course-chip.biz2 {
       color: var(--blue);
-      background: var(--soft-blue);
+      background: #dbe9ff;
     }
 
     .course-chip.student {
       color: var(--violet);
-      background: var(--soft-violet);
+      background: #ded3fa;
+    }
+
+    .next-card {
+      margin-bottom: 14px;
+      padding: 18px 20px;
+      color: #fff;
+      background: linear-gradient(160deg, #102344, #143a65);
+      border-color: rgba(255, 255, 255, 0.12);
+      box-shadow: 0 18px 38px rgba(16, 35, 68, 0.22);
+    }
+
+    .next-card h2 {
+      margin-bottom: 12px;
+      font-size: 19px;
+    }
+
+    .next-strip {
+      display: grid;
+      grid-template-columns: 86px 1fr auto auto;
+      gap: 12px;
+      align-items: center;
+      padding: 12px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+    .next-strip span {
+      color: #d8e6f7;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .next-strip strong {
+      font-size: 29px;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .next-strip b {
+      font-size: 14px;
+      line-height: 1.35;
+    }
+
+    .next-strip small {
+      color: #d8e6f7;
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .calendar-card {
+      padding: 16px;
+      background: rgba(255, 255, 255, 0.94);
+    }
+
+    .calendar-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .calendar-head h2 {
+      font-size: 18px;
+    }
+
+    .calendar-legend {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .legend-dot {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 900;
+    }
+
+    .legend-dot::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--teal);
+    }
+
+    .legend-dot.biz2::before {
+      background: var(--blue);
+    }
+
+    .legend-dot.student::before {
+      background: var(--violet);
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 5px;
+    }
+
+    .weekday {
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 900;
+      text-align: center;
+    }
+
+    .day-cell {
+      position: relative;
+      min-height: 58px;
+      padding: 7px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #f8fbff;
+    }
+
+    .day-cell.out {
+      opacity: 0.32;
+    }
+
+    .day-cell.today {
+      border-color: var(--red);
+      box-shadow: inset 0 0 0 2px rgba(200, 63, 63, 0.14);
+    }
+
+    .day-number {
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .day-dots {
+      position: absolute;
+      left: 7px;
+      right: 7px;
+      bottom: 7px;
+      display: flex;
+      gap: 3px;
+      flex-wrap: wrap;
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--teal);
+    }
+
+    .dot.biz2 {
+      background: var(--blue);
+    }
+
+    .dot.student {
+      background: var(--violet);
+    }
+
+    .timeline-panel,
+    .queue-panel {
+      max-height: calc(100vh - 102px);
+      overflow-y: auto;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 8px;
+    }
+
+    .timeline-card {
+      min-height: 82px;
+      padding: 14px;
+      display: grid;
+      grid-template-columns: 46px 78px minmax(0, 1fr) 52px;
+      align-items: center;
+      gap: 12px;
+      background: #eef7f5;
+    }
+
+    .timeline-card.biz2 {
+      background: #eaf2ff;
+    }
+
+    .timeline-card.student {
+      background: #eee7fd;
+    }
+
+    .timeline-card time {
+      color: var(--blue);
+      font-size: 15px;
+      font-weight: 900;
+      white-space: nowrap;
     }
 
     .timeline-card h3 {
@@ -431,15 +523,17 @@
     }
 
     .timeline-card p {
-      margin-top: 3px;
+      margin-top: 4px;
       color: var(--muted);
       font-size: 12px;
-      line-height: 1.45;
+      line-height: 1.42;
     }
 
     .status {
-      min-width: 62px;
-      text-align: center;
+      min-height: 28px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       padding: 5px 8px;
       border-radius: 999px;
       font-size: 11px;
@@ -449,7 +543,7 @@
 
     .status.ready {
       color: #0d5d55;
-      background: var(--soft-teal);
+      background: #daf3ec;
     }
 
     .status.wait {
@@ -467,88 +561,77 @@
       background: #edf2f7;
     }
 
-    .queue-list,
-    .check-list {
+    .queue-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .queue-card {
+      padding: 12px;
       display: grid;
       gap: 8px;
     }
 
-    .queue-card,
-    .check-card {
-      padding: 12px;
-      box-shadow: none;
-      display: grid;
-      gap: 5px;
-    }
-
-    .queue-card b,
-    .check-card b {
+    .queue-card b {
       font-size: 14px;
       line-height: 1.35;
     }
 
-    .queue-card span,
-    .check-card span {
+    .queue-card span {
       color: var(--muted);
       font-size: 12px;
-      line-height: 1.45;
+      line-height: 1.4;
     }
 
-    .email-flow {
-      display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 8px;
+    @media (max-width: 1180px) {
+      .dashboard {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+
+      .timeline-panel,
+      .queue-panel {
+        max-height: none;
+      }
+
+      .course-cards {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
     }
 
-    .email-step {
-      min-height: 74px;
-      padding: 12px;
-      border-radius: 8px;
-      background: #f8fbff;
-      border: 1px solid var(--line);
-    }
-
-    .email-step b {
-      display: block;
-      font-size: 14px;
-      margin-bottom: 5px;
-    }
-
-    .email-step span {
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.45;
-    }
-
-    .footer {
-      margin-top: 18px;
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.55;
-    }
-
-    @media (max-width: 1100px) {
-      .hero,
-      .course-grid,
-      .email-flow {
+    @media (max-width: 900px) {
+      .course-cards {
         grid-template-columns: 1fr;
       }
 
-      .span-8,
-      .span-4,
-      .span-12 {
-        grid-column: span 12;
+      .next-strip {
+        grid-template-columns: 76px minmax(0, 1fr);
+      }
+
+      .next-strip .course-chip,
+      .next-strip small {
+        grid-column: 2;
+      }
+
+      .timeline-card {
+        grid-template-columns: 52px 78px minmax(0, 1fr);
+      }
+
+      .timeline-card .status {
+        grid-column: 3;
+        justify-self: start;
       }
     }
 
-    @media (max-width: 720px) {
+    @media (max-width: 760px) {
       .shell {
         width: min(100% - 24px, 1440px);
-        padding-top: 18px;
+        padding-top: 12px;
       }
 
       .topbar,
       .panel-head,
+      .next-strip,
       .timeline-card {
         display: grid;
       }
@@ -557,17 +640,56 @@
         justify-content: start;
       }
 
-      .panel,
-      .course-card {
-        padding: 16px;
-      }
-
-      .course-meta {
+      .course-cards {
         grid-template-columns: 1fr;
       }
 
-      .timeline-card {
+      .mini-metrics {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .calendar-grid {
+        gap: 4px;
+      }
+
+      .day-cell {
+        min-height: 44px;
+        padding: 5px;
+      }
+    }
+
+    @media (max-width: 460px) {
+      .shell {
+        width: min(100% - 16px, 1440px);
+      }
+
+      .panel {
+        padding: 14px;
+      }
+
+      .course-switch {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .filter-button {
+        width: 100%;
+      }
+
+      .mini-metrics {
         grid-template-columns: 1fr;
+      }
+
+      .calendar-head {
+        display: grid;
+      }
+
+      .day-cell {
+        min-height: 38px;
+      }
+
+      .day-number {
+        font-size: 11px;
       }
     }
 
@@ -596,10 +718,10 @@
 
       .panel,
       .course-card,
-      .metric,
+      .next-card,
+      .calendar-card,
       .timeline-card,
-      .queue-card,
-      .check-card {
+      .queue-card {
         box-shadow: none;
         break-inside: avoid;
       }
@@ -613,7 +735,7 @@
         <div class="mark">SC</div>
         <div>
           <strong>그린컴퓨터아카데미 수원</strong>
-          <small>3개 과정 통합 스케줄 대시보드</small>
+          <small>기맞1 + 기맞2 + 훈련이수자(출판)</small>
         </div>
       </div>
       <div class="top-actions">
@@ -622,181 +744,88 @@
       </div>
     </header>
 
-    <section class="hero">
-      <article class="panel hero-main">
-        <div>
-          <div class="eyebrow">기맞1 + 기맞2 + 훈련이수자(출판)</div>
-          <h1>3개 과정의 주요 일정과 메일 리마인드를 한 화면에서 관리합니다.</h1>
-          <p class="hero-copy">SC_V1은 여러 과정의 평가, 현장평가 신청, 성적결과 공유, 피드백 요청, 개강/종강 흐름을 통합해서 보는 운영 허브입니다. GitHub Pages는 대시보드, Google Sheet는 일정 DB, Apps Script는 메일 발송을 담당하는 구조로 확장합니다.</p>
-        </div>
-        <div class="status-row" aria-label="통합 운영 상태">
-          <span class="badge teal">과정 3개</span>
-          <span class="badge blue">주요 일정 <b id="totalEventCount">0</b>건</span>
-          <span class="badge amber">메일 리마인드 D-14/D-7/D-1/D-day</span>
-          <span class="badge violet">Sheet + Apps Script 연동 예정</span>
-        </div>
+    <section class="dashboard">
+      <article class="panel">
         <div class="course-switch" aria-label="과정 필터">
           <button class="filter-button" type="button" data-filter="all" aria-pressed="true">전체</button>
           <button class="filter-button" type="button" data-filter="biz1" aria-pressed="false">기업맞춤 1차</button>
           <button class="filter-button" type="button" data-filter="biz2" aria-pressed="false">기업맞춤 2차</button>
           <button class="filter-button" type="button" data-filter="student" aria-pressed="false">훈련이수자 출판</button>
         </div>
+
+        <div class="course-cards" id="courseCards"></div>
+
+        <section class="next-card" aria-label="다음 발송 또는 확인 대상">
+          <h2>다음 발송/확인 대상</h2>
+          <div class="next-strip">
+            <span>다가오는 일정</span>
+            <strong id="nextDate">-</strong>
+            <b id="nextTitle">일정 확인 중</b>
+            <span id="nextMeta">과정 · 유형</span>
+          </div>
+        </section>
+
+        <section class="calendar-card" aria-label="월간 일정 달력">
+          <div class="calendar-head">
+            <h2 id="calendarTitle">2026년 7월</h2>
+            <div class="calendar-legend">
+              <span class="legend-dot">기맞1</span>
+              <span class="legend-dot biz2">기맞2</span>
+              <span class="legend-dot student">훈련이수자</span>
+            </div>
+          </div>
+          <div class="calendar-grid" id="calendarGrid"></div>
+        </section>
       </article>
 
-      <aside class="panel next-panel">
-        <div>
-          <h2>다음 발송/확인 대상</h2>
-          <p>오늘 기준으로 가장 가까운 일정과 메일 리마인드 대상을 표시합니다.</p>
-        </div>
-        <div class="next-date">
-          <span id="nextKicker">다가오는 일정</span>
-          <strong id="nextDate">-</strong>
-          <b id="nextTitle">일정 확인 중</b>
-          <span id="nextMeta">과정 · 유형</span>
-        </div>
-        <p>실제 발송은 Apps Script 시간 기반 트리거가 담당합니다. 발송 이력은 Sheet에 기록해 중복 발송을 막습니다.</p>
-      </aside>
-    </section>
-
-    <section class="course-grid" id="courseGrid" aria-label="과정별 요약"></section>
-
-    <section class="grid">
-      <article class="panel span-8">
+      <article class="panel timeline-panel">
         <div class="panel-head">
           <div>
             <h2>통합 타임라인</h2>
-            <p>선택한 과정의 주요 운영/평가/성적결과/현장평가 일정을 표시합니다.</p>
+            <p>과정별 주요 일정과 D-day를 압축해서 봅니다.</p>
           </div>
           <span class="badge blue" id="visibleCount">0건 표시</span>
         </div>
         <div class="timeline" id="timeline"></div>
       </article>
 
-      <aside class="panel span-4">
+      <aside class="panel queue-panel">
         <div class="panel-head">
           <div>
             <h2>메일 리마인드 큐</h2>
-            <p>D-14, D-7, D-1, D-day 기준으로 발송 대상을 추립니다.</p>
+            <p>D-14, D-7, D-1, D-day 기준 발송 대상을 추립니다.</p>
           </div>
           <span class="badge amber" id="queueCount">0건</span>
         </div>
         <div class="queue-list" id="reminderQueue"></div>
       </aside>
-
-      <article class="panel span-12">
-        <div class="panel-head">
-          <div>
-            <h2>메일 발송 구조</h2>
-            <p>GitHub Pages는 발송하지 않고, Google Sheet와 Apps Script가 자동 메일을 처리합니다.</p>
-          </div>
-          <span class="badge violet">apps-script/reminder.gs 초안 포함</span>
-        </div>
-        <div class="email-flow">
-          <div class="email-step">
-            <b>1. 일정 DB</b>
-            <span>Sheet에 과정, 날짜, 유형, 제목, 담당자, 수신자, 발송 기준을 저장</span>
-          </div>
-          <div class="email-step">
-            <b>2. 매일 확인</b>
-            <span>Apps Script 시간 트리거가 오늘 날짜 기준 D-Day 계산</span>
-          </div>
-          <div class="email-step">
-            <b>3. 발송 대상 추출</b>
-            <span>D-14, D-7, D-1, D-day와 중요도 필수/중요 항목만 큐 생성</span>
-          </div>
-          <div class="email-step">
-            <b>4. 메일 발송</b>
-            <span>담당자와 참조자에게 과정별 일정 리마인드 발송</span>
-          </div>
-          <div class="email-step">
-            <b>5. 이력 기록</b>
-            <span>발송일, 수신자, 일정키를 기록해 중복 발송 방지</span>
-          </div>
-        </div>
-      </article>
-
-      <article class="panel span-12">
-        <div class="panel-head">
-          <div>
-            <h2>운영 체크포인트</h2>
-            <p>SC는 일정 리마인드를 맡고, TEST는 증빙 파일 상태를 추적합니다.</p>
-          </div>
-        </div>
-        <div class="email-flow check-list">
-          <div class="check-card">
-            <b>평가 D-14</b>
-            <span>평가도구, 수행준거, Google Form 문항, 응답시트 연결 여부 확인</span>
-          </div>
-          <div class="check-card">
-            <b>평가 D-7</b>
-            <span>안내문 배포, 평가자료 출력 기준, 보완 필요 파일 확인</span>
-          </div>
-          <div class="check-card">
-            <b>평가 D-day</b>
-            <span>응시자 명단, 평가 진행 기록, 사진/서명/결과 원천자료 확보</span>
-          </div>
-          <div class="check-card">
-            <b>성적결과 공유 후</b>
-            <span>기업 피드백 회신 요청, 응답 취합, 성과 리포트 반영</span>
-          </div>
-          <div class="check-card">
-            <b>현장평가 신청</b>
-            <span>신청 기간, 증빙 상태, 최종 제출 파일 경로 확인</span>
-          </div>
-        </div>
-      </article>
     </section>
-
-    <p class="footer">일정 데이터는 현재 로컬 백업 메모와 사용자가 제공한 평가일을 기반으로 구성한 수동 v0.2입니다. 다음 단계에서 Google Sheet 원본을 연결하면 자동 갱신 구조로 전환합니다.</p>
   </main>
 
   <script>
     const courses = [
-      {
-        id: "biz1",
-        label: "기맞1",
-        name: "기업맞춤 1차",
-        tone: "teal",
-        source: "기업맞춤 1차시 원본",
-        focus: "프로젝트 평가, 성적결과 공유, 기업 피드백 요청"
-      },
-      {
-        id: "biz2",
-        label: "기맞2",
-        name: "기업맞춤 2차",
-        tone: "blue",
-        source: "기업맞춤 2차시 원본",
-        focus: "출판 평가, 산업체특강, 프로젝트1 진입"
-      },
-      {
-        id: "student",
-        label: "훈련이수자",
-        name: "훈련이수자 출판 과정",
-        tone: "violet",
-        source: "20260714 과정운영 통합일정",
-        focus: "NCS/비NCS 평가, 현장평가, 종강"
-      }
+      { id: "biz1", label: "기맞1", name: "기업맞춤 1차", focus: "성적결과 공유, 기업 피드백, 프로젝트 평가" },
+      { id: "biz2", label: "기맞2", name: "기업맞춤 2차", focus: "출판 평가, 산업체특강, 프로젝트 진입" },
+      { id: "student", label: "훈련이수자", name: "훈련이수자 출판 과정", focus: "NCS/비NCS 평가, 현장평가, 종강" }
     ];
 
     const events = [
       { course: "biz1", date: "2026-07-10", group: "평가", type: "성적결과", title: "성적결과 기업1 피드백 요청", detail: "피드백 완료 요청", priority: "필수" },
       { course: "biz1", date: "2026-07-13", group: "기타행사", type: "취업세미나", title: "취업세미나", detail: "참여 안내 및 준비", priority: "중요" },
+      { course: "student", date: "2026-07-14", group: "운영", type: "개강/OT", title: "훈련이수자 출판 과정 개강", detail: "재량교과 개강/OT", priority: "필수" },
       { course: "biz1", date: "2026-07-15", group: "기타행사", type: "특강", title: "산업체특강3", detail: "특강 운영 리마인드", priority: "중요" },
       { course: "biz1", date: "2026-07-20", group: "평가", type: "본평가", title: "프로젝트2 본평가", detail: "디지털 교재 및 홍보 패키지 제작", priority: "필수" },
       { course: "biz1", date: "2026-07-21", group: "평가", type: "개인성과기술서", title: "프로젝트2 개인성과기술서", detail: "성과기술서 취합", priority: "필수" },
       { course: "biz1", date: "2026-07-21", group: "평가", type: "팀별역량피드백", title: "프로젝트2 팀별역량피드백", detail: "팀별 피드백 취합", priority: "필수" },
+      { course: "biz2", date: "2026-07-23", group: "기타행사", type: "특강", title: "산업체특강-프1", detail: "예정", priority: "중요" },
+      { course: "student", date: "2026-07-24", group: "평가", type: "본평가", title: "드로잉 이미지 편집디자인", detail: "디지털 편집디자인 기초 · NCS", priority: "필수" },
       { course: "biz1", date: "2026-07-28", group: "평가", type: "성적결과", title: "성적결과 기업2 공유", detail: "7/28 공유 후 8/4 피드백 요청", priority: "필수" },
       { course: "biz1", date: "2026-08-03", group: "기타행사", type: "발표/행사", title: "작품발표회", detail: "발표 운영 준비", priority: "중요" },
-      { course: "biz1", date: "2026-08-04", group: "평가", type: "성적결과", title: "성적결과 기업2 피드백 요청", detail: "피드백 완료 요청", priority: "필수" },
-      { course: "biz1", date: "2026-08-05", group: "평가", type: "성적결과", title: "성적결과 기업3 공유", detail: "기업 회신 요청", priority: "필수" },
-
-      { course: "biz2", date: "2026-07-23", group: "기타행사", type: "특강", title: "산업체특강-프1", detail: "예정", priority: "중요" },
       { course: "biz2", date: "2026-08-03", group: "평가", type: "본평가", title: "[출판] 교과목7 본평가", detail: "광고 전략 기획, 디지털 광고 디자인, 브랜드 아이덴티티, 랜딩페이지/UI 시안", priority: "필수" },
+      { course: "biz1", date: "2026-08-04", group: "평가", type: "성적결과", title: "성적결과 기업2 피드백 요청", detail: "피드백 완료 요청", priority: "필수" },
       { course: "biz2", date: "2026-08-04", group: "평가", type: "사전진단", title: "프로젝트1 사전진단평가", detail: "프로젝트1 진입 전 사전진단", priority: "필수" },
-
-      { course: "student", date: "2026-07-14", group: "운영", type: "개강/OT", title: "훈련이수자 출판 과정 개강", detail: "재량교과 개강/OT", priority: "필수" },
-      { course: "student", date: "2026-07-24", group: "평가", type: "본평가", title: "드로잉 이미지 편집디자인", detail: "디지털 편집디자인 기초 · NCS", priority: "필수" },
       { course: "student", date: "2026-08-05", group: "평가", type: "본평가", title: "사진 이미지 편집디자인", detail: "디지털 편집디자인 기초 · NCS", priority: "필수" },
+      { course: "biz1", date: "2026-08-05", group: "평가", type: "성적결과", title: "성적결과 기업3 공유", detail: "기업 회신 요청", priority: "필수" },
       { course: "student", date: "2026-08-13", group: "평가", type: "본평가", title: "편집디자인 소프트웨어 활용", detail: "디지털 편집디자인 기초 · NCS", priority: "필수" },
       { course: "student", date: "2026-08-20", group: "평가", type: "본평가", title: "편집디자인 인쇄감리", detail: "디지털 편집디자인 실무 · NCS", priority: "필수" },
       { course: "student", date: "2026-08-31", group: "평가", type: "본평가", title: "편집디자인 시안제작", detail: "디지털 편집디자인 실무 · NCS", priority: "필수" },
@@ -835,7 +864,7 @@
     const ddayText = (target) => {
       const d = diffDays(target);
       if (d === 0) return "오늘";
-      return d > 0 ? `D-${d}` : `완료 D+${Math.abs(d)}`;
+      return d > 0 ? `D-${d}` : `완료`;
     };
     const statusClass = (target) => {
       const d = diffDays(target);
@@ -845,11 +874,10 @@
     };
     const courseById = (id) => courses.find((course) => course.id === id) || courses[0];
     const sortedEvents = [...events].sort((a, b) => parseLocalDate(a.date) - parseLocalDate(b.date));
-
     const filteredEvents = () => sortedEvents.filter((event) => activeFilter === "all" || event.course === activeFilter);
 
     function renderCourseCards() {
-      const grid = document.getElementById("courseGrid");
+      const grid = document.getElementById("courseCards");
       grid.innerHTML = courses.map((course) => {
         const courseEvents = sortedEvents.filter((event) => event.course === course.id);
         const upcoming = courseEvents.filter((event) => diffDays(event.date) >= 0);
@@ -860,12 +888,11 @@
             <div>
               <span class="course-chip ${course.id}">${course.label}</span>
               <h3>${course.name}</h3>
-              <p>${course.focus}</p>
             </div>
-            <div class="course-meta">
-              <div class="metric"><span>주요 일정</span><strong>${courseEvents.length}</strong></div>
-              <div class="metric"><span>필수</span><strong>${required}</strong></div>
-              <div class="metric"><span>다음</span><strong>${next ? formatShortDate(next.date) : "-"}</strong></div>
+            <div class="mini-metrics">
+              <div class="mini-metric"><span>주요일정</span><strong>${courseEvents.length}</strong></div>
+              <div class="mini-metric"><span>필수</span><strong>${required}</strong></div>
+              <div class="mini-metric"><span>다음일정</span><strong>${next ? formatShortDate(next.date) : "-"}</strong></div>
             </div>
           </article>
         `;
@@ -878,12 +905,12 @@
       document.getElementById("timeline").innerHTML = items.map((item) => {
         const course = courseById(item.course);
         return `
-          <article class="timeline-card">
+          <article class="timeline-card ${course.id}">
             <time>${formatShortDate(item.date)}</time>
             <span class="course-chip ${course.id}">${course.label}</span>
             <div>
               <h3>${item.title}</h3>
-              <p>${item.group} · ${item.type} · ${item.detail || course.source}</p>
+              <p>${item.group} · ${item.type} · ${item.detail}</p>
             </div>
             <span class="status ${statusClass(item.date)}">${ddayText(item.date)}</span>
           </article>
@@ -920,16 +947,51 @@
       const course = courseById(upcoming.course);
       document.getElementById("nextDate").textContent = formatShortDate(upcoming.date);
       document.getElementById("nextTitle").textContent = upcoming.title;
-      document.getElementById("nextMeta").textContent = `${course.name} · ${upcoming.type} · ${ddayText(upcoming.date)}`;
+      document.getElementById("nextMeta").innerHTML = `<span class="course-chip ${course.id}">${course.label}</span><small>${upcoming.type} · ${ddayText(upcoming.date)}</small>`;
+    }
+
+    function renderCalendar() {
+      const grid = document.getElementById("calendarGrid");
+      const base = new Date(dayOnly.getFullYear(), dayOnly.getMonth(), 1);
+      const year = base.getFullYear();
+      const month = base.getMonth();
+      const first = new Date(year, month, 1);
+      const start = new Date(year, month, 1 - first.getDay());
+      const monthEvents = sortedEvents.filter((event) => {
+        const date = parseLocalDate(event.date);
+        return date.getFullYear() === year && date.getMonth() === month && (activeFilter === "all" || event.course === activeFilter);
+      });
+      const byDay = new Map();
+      monthEvents.forEach((event) => {
+        const key = String(parseLocalDate(event.date).getDate());
+        byDay.set(key, [...(byDay.get(key) || []), event]);
+      });
+      document.getElementById("calendarTitle").textContent = `${year}년 ${month + 1}월`;
+      const weekdays = ["일", "월", "화", "수", "목", "금", "토"].map((day) => `<div class="weekday">${day}</div>`).join("");
+      const cells = Array.from({ length: 42 }, (_, index) => {
+        const date = new Date(start);
+        date.setDate(start.getDate() + index);
+        const inMonth = date.getMonth() === month;
+        const isToday = formatDate(date) === formatDate(dayOnly);
+        const dayEvents = byDay.get(String(date.getDate())) || [];
+        const dots = dayEvents.slice(0, 5).map((event) => `<span class="dot ${event.course}"></span>`).join("");
+        return `
+          <div class="day-cell ${inMonth ? "" : "out"} ${isToday ? "today" : ""}">
+            <span class="day-number">${date.getDate()}</span>
+            <div class="day-dots">${dots}</div>
+          </div>
+        `;
+      }).join("");
+      grid.innerHTML = weekdays + cells;
     }
 
     function renderAll() {
       document.getElementById("todayText").textContent = formatDate(dayOnly);
-      document.getElementById("totalEventCount").textContent = String(events.length);
       renderCourseCards();
       renderTimeline();
       renderReminderQueue();
       renderNextEvent();
+      renderCalendar();
     }
 
     document.querySelectorAll(".filter-button").forEach((button) => {
@@ -940,6 +1002,7 @@
         renderTimeline();
         renderReminderQueue();
         renderNextEvent();
+        renderCalendar();
       });
     });
 
